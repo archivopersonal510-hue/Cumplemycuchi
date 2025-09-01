@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Cumpleaños Mi Amor</title>
+  <style>
+    body{
+      margin:0; padding:0;
+      font-family: Arial, sans-serif;
+      text-align:center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      min-height:100vh;
+      overflow-y:auto; /* permite bajar/subir */
+    }
+    h1{
+      font-size:2.2rem; color:#fff; margin-top:32px;
+      text-shadow:2px 2px 4px rgba(0,0,0,.35);
+    }
+    .mensaje{
+      background: rgba(255,255,255,.9);
+      padding:18px; margin:16px auto;
+      border-radius:14px; max-width:560px;
+      font-size:1.1rem;
+      box-shadow:0 6px 16px rgba(0,0,0,.12);
+    }
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:14px 22px;
+      border-radius:12px;
+      font-size:16px; color:#fff;
+      margin:18px auto; cursor:pointer;
+      transition:.2s transform ease;
+      box-shadow:0 6px 16px rgba(0,0,0,.15);
+    }
+    .btn:active{ transform:scale(.98); }
+    .btn-whatsapp{ background:#25D366; }
+    .btn-whatsapp:hover{ transform:scale(1.05); }
+    #confirmacion{
+      display:none;
+      background:#d4edda; color:#155724;
+      border:1px solid #c3e6cb;
+      padding:14px; border-radius:10px;
+      margin:16px auto; max-width:560px;
+      font-weight:bold;
+    }
+    .fallback{
+      display:none; margin-top:12px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Feliz Cumpleaños mi amor ❤️</h1>
+
+  <div class="mensaje">❤️ Te amo con todo mi corazón cuchi, eres lo mejor de mi vida.</div>
+  <div class="mensaje">✨ Hoy cumples 18, tu mayoría de edad, y estoy encantada de estar contigo en esta etapa de tu vida ❤️</div>
+  <div class="mensaje">🎉 Feliz cumpleaños mi bebé hermosa ✨ 🥰</div>
+  <div class="mensaje">💕 Con cariño, tu loquita preferida 💕</div>
+  <div class="mensaje">🥰 Te amo demasiado ❤️</div>
+
+  <!-- Botón principal -->
+  <button class="btn btn-whatsapp" onclick="pedirRegalo()">
+    📸 Toca aquí si quieres de regalo, tus fotos favoritas 😉
+  </button>
+
+  <!-- Mensaje verde -->
+  <div id="confirmacion">✅ Regalo pedido, escríbeme a mi WhatsApp y te llegará 😉😏</div>
+
+  <!-- Enlace oculto que se "clickea" automáticamente -->
+  <a id="wa" href="#" target="_blank" rel="noopener" style="display:none;"></a>
+
+  <!-- Botón visible de respaldo por si el auto-abrir es bloqueado -->
+  <div id="fallbackWrap" class="fallback">
+    <a id="waVisible" class="btn btn-whatsapp">Abrir WhatsApp ahora 💬</a>
+  </div>
+
+  <script>
+    // ⚠️ Pon aquí TU número en formato internacional SIN +, SIN espacios ni guiones
+    // Ejemplo Panamá +507 6365-2420  => "50763652420"
+    const numero = "50763652420";
+
+    // Mensaje que llegará escrito
+    const mensaje = "Hola amor ❤️ ya pedí mi regalo 😏📸";
+
+    // URL más compatible en WebViews
+    const urlWA = `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
+
+    // Preparamos los enlaces al cargar
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("wa").href = urlWA;
+      const waVisible = document.getElementById("waVisible");
+      waVisible.setAttribute("href", urlWA);
+      waVisible.setAttribute("target", "_blank");
+      waVisible.setAttribute("rel", "noopener");
+    });
+
+    function pedirRegalo(){
+      // 1) Mostrar confirmación en verde
+      const conf = document.getElementById("confirmacion");
+      conf.style.display = "block";
+
+      // 2) Mostrar el botón de respaldo por si el auto-abrir falla
+      document.getElementById("fallbackWrap").style.display = "block";
+
+      // 3) Intentar abrir WhatsApp automáticamente (más fiable con <a>.click())
+      setTimeout(() => {
+        document.getElementById("wa").click();
+      }, 900);
+    }
+  </script>
+
+</body>
+</html>
